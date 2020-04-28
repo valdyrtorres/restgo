@@ -18,7 +18,8 @@ Iniciar o mongodb
 
 mongod –-dbpath=C:\data\db 
 
-ex: mongod --dbpath=C:\valdir\private\coders_go\restgo\data\db 
+ex: mongod --dbpath=C:\restgo\data\db 
+Caso tenha dificuldade, apague o c:\data\db (ou onde estiver os seus dados do mongodb) e inicie com o diretório vazio
 
 Comandos uteis
 
@@ -46,6 +47,9 @@ db.customers.insert({ nome: "Luiz", idade: 29 })
 TESTES COM O CURL:
 Consulta:
 curl -v -X GET http://127.0.0.1:8701/tasks
+
+Consultar pelo ID (curl -v GET http://127.0.0.1:8701/tasks/{id})
+curl -v GET http://127.0.0.1:8721/tasks/5ea883358699e13ed085d5b2
 
 Criar:
 curl -v -X POST -d {\"name\":\"Rico\"} http://127.0.0.1:8701/tasks

@@ -26,7 +26,7 @@ func (tasks) FindAll() ([]*Task, error) {
 
 func (tasks) FindOne(id string) (*Task, error) {
 	var t *Task
-	return t, common.DB.Tasks.Find(bson.M{"_id": bson.IsObjectIdHex(id)}).One(&t)
+	return t, common.DB.Tasks.Find(bson.M{"_id": bson.ObjectIdHex(id)}).One(&t)
 }
 
 func (tasks) Create(name, desc string) (*Task, error) {
@@ -46,7 +46,7 @@ func (tasks) Update(id, name, desc string) error {
 	println("id:" + id)
 	println("nome:" + name)
 	println("descricao:" + desc)
-	if err := common.DB.Tasks.UpdateId(bson.IsObjectIdHex(id),
+	if err := common.DB.Tasks.UpdateId(bson.ObjectIdHex(id),
 		bson.M{"$set": bson.M{
 			"name": name,
 			"desc": desc,
@@ -59,7 +59,7 @@ func (tasks) Update(id, name, desc string) error {
 }
 
 func (tasks) DeleteById(id string) error {
-	if err := common.DB.Tasks.RemoveId(bson.IsObjectIdHex(id)); err != nil {
+	if err := common.DB.Tasks.RemoveId(bson.ObjectIdHex(id)); err != nil {
 		return err
 	}
 	return nil
