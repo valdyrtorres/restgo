@@ -12,7 +12,7 @@ go get -u github.com/gorilla/mux
 Mongo
 go get gopkg.in/mgo.v2
 
-go run main.go
+go run main.go --> Iniciar o mongo antes
 
 Iniciar o mongodb
 
@@ -36,6 +36,7 @@ use nomeBD
 Este comando acessa um determinado banco de dados, quando ele existe. Se o banco não existe ele é criado automaticamente.
 
 mongo
+----------------------------------------------------------------------------------------
 é o cliente
 
 show collections
@@ -44,21 +45,30 @@ db.customers.find()
 
 db.customers.insert({ nome: "Luiz", idade: 29 })
 
-TESTES COM O CURL:
+Consulta básica:
+SELECT * FROM clientes LIMIT 10;
+db.clientes.find({}).limit(10);
+SELECT id, nome FROM clientes ORDER BY id;
+db.clientes.find({},{“_id”: 1, “nome”: 1}).sort({“_id”: 1});
+SELECT id, nome FROM clientes ORDER BY id DESC;
+db.clientes.find({},{“_id”: 1, “nome”: 1}).sort({“_id”: -1});
+----------------------------------------------------------------------------------------
+
+TESTES COM O CURL: (NOTA: USE o cmd em vez do powershell)
+veja: https://stackoverflow.com/questions/45183355/invoke-webrequest-cannot-bind-parameter-headers
 Consulta:
-curl -v -X GET http://127.0.0.1:8701/tasks
+curl http://127.0.0.1:8721/tasks
 
 Consultar pelo ID (curl -v GET http://127.0.0.1:8701/tasks/{id})
 curl -v GET http://127.0.0.1:8721/tasks/5ea883358699e13ed085d5b2
 
 Criar:
-curl -v -X POST -d {\"name\":\"Rico\"} http://127.0.0.1:8701/tasks
+curl -d {"""name""":"""TESTE AAA"""} http://127.0.0.1:8721/tasks
 
 Update
-curl -v -X PUT -d {\"name\":\"RicoTorres\"} http://127.0.0.1:8701/tasks/5d6e9c1487cb4f2870c1b7d9
-curl -v -X PUT -d {\"name\":\"Rico%20Torres\"} http://127.0.0.1:8701/tasks/5d6e9c1487cb4f2870c1b7d9
+curl -v -X PUT -d {"""name""":"""Rico Torres"""} http://127.0.0.1:8721/tasks/5f80fc8c8699e148347d7e12
 
 Delete
-curl -v -X DELETE http://127.0.0.1:8701/tasks/5d6e9c1487cb4f2870c1b7d9
+curl -v -X DELETE http://127.0.0.1:8721/tasks/5ea8894d8699e12c7c51960f
 
 

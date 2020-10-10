@@ -6,7 +6,7 @@ import (
 
 	"./common"
 	"./routers"
-	"github.com/urfave/negroni"
+	"github.com/urfave/negroni" // pequeno middleware web em Go
 )
 
 func main() {

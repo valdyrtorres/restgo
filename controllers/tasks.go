@@ -8,13 +8,14 @@ import (
 
 	"../common"
 	"../models"
-	"github.com/gorilla/mux"
+	"github.com/gorilla/mux" // URL router and dispatcher.
 )
 
 var Tasks = new(tasksController)
 
 type tasksController struct{}
 
+// POST
 func (tc *tasksController) Create(w http.ResponseWriter, r *http.Request) {
 	var t models.Task
 	if err := json.NewDecoder(r.Body).Decode(&t); err != nil {
@@ -36,6 +37,7 @@ func (tc *tasksController) Create(w http.ResponseWriter, r *http.Request) {
 	common.JsonOk(w, res, http.StatusCreated)
 }
 
+// GET
 func (tc *tasksController) Get(w http.ResponseWriter, r *http.Request) {
 	tasks, err := models.Tasks.FindAll()
 	if err != nil {
@@ -51,6 +53,7 @@ func (tc *tasksController) Get(w http.ResponseWriter, r *http.Request) {
 	common.JsonOk(w, res, http.StatusOK)
 }
 
+// GET
 func (tc *tasksController) Show(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -69,6 +72,7 @@ func (tc *tasksController) Show(w http.ResponseWriter, r *http.Request) {
 	common.JsonOk(w, res, http.StatusOK)
 }
 
+// PUT
 func (tc *tasksController) Update(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -91,6 +95,7 @@ func (tc *tasksController) Update(w http.ResponseWriter, r *http.Request) {
 	common.JsonStatus(w, http.StatusNoContent)
 }
 
+// DELETE
 func (tc *tasksController) Delete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
